@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+{% load render_partial %}
+
+{% block body %}
+
+    <div class="container py-3 w-100">
+        {% render_partial 'home.views.HeaderComponentView' %}
+    </div>
+
+    <!-- <div class="divider"></div> -->
+
+    <main class="main">
+        <div class="container py-3">
+            {% block content %}
+
+            {% endblock %}
+        </div>
+    </main>
+
+    <!-- <div class="divider"></div> -->
+
+    <div class="container">
+        {% include 'includes/footer_component.html' %}
+    </div>
+
+    {% include 'includes/footer_references.html' %}
+    {% block extra_footer_references %}
+
+    {% endblock %}
+
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}account verification{% endblock %}
+
+{% block extra_header_references %}
+<link rel="stylesheet" href="{% static 'accounts/css/account_verification.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<div class="form-container d-flex justify-content-center align-items-center text-center" style="min-height: 400px;">
+    <form method="POST" id="form">
+        {% csrf_token %}
+        <h1><strong>تأیید حساب کاربری</strong></h1>
+        <p class="pt-3 pb-2 text-body-secondary">کد تأیید ارسال شده به ایمیل خود را وارد کنید.</p>
+
+        <div class="d-grid">
+            {{ form.code }}
+            <button class="btn d-block btn-outline-success mt-3">تأیید</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

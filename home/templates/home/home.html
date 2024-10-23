@@ -1,0 +1,63 @@
+{% extends 'layout.html' %}
+{% load poll_extras %}
+
+{% block title %}home page{% endblock %}
+
+
+{% block content %}
+<section style="height: 300px" class="mb-5">
+  <div id="carouselExampleCaptions" class="carousel slide h-100">
+    <!-- <div class="carousel-indicators">
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+          <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+        </div> -->
+    <div class="carousel-inner h-100">
+      {% for slider in sliders %}
+      <div class="carousel-item h-100 {% if forloop.first %}active{% endif %}">
+        <img src="{{ slider.image.url }}" class="d-block w-100 h-100" alt="...">
+        <div class="carousel-caption d-none d-md-block">
+          <h5><a href="{{ slider.url_title }}">{{ slider.title }}</a></h5>
+          <p>{{ slider.description }}</p>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+
+    {% if sliders|length > 1%}
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    {% endif %}
+
+  </div>
+</section>
+
+<section id="products">
+  <div class="mb-5">
+    <h2>آخرین محصولات</h2>
+  </div>
+
+  <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-3">
+    {% for product in latest_products %}
+      <div class="col">
+
+        {% include 'products/includes/product.html' %}
+
+      </div>
+
+    {% endfor %}
+
+
+  </div>
+
+</section>
+
+
+{% endblock %}

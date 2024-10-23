@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% load render_partial %}
+
+{% block body %}
+
+    {% render_partial 'home.views.HeaderComponentView' %}
+    
+
+    
+    <div class="d-flex">
+
+        {% include 'includes/user-profile-sidebar.html' %}
+
+        <main style="width: 75%;">
+            {% block content %}
+        
+            {% endblock %}
+        </main>
+    </div>
+    
+
+{% endblock %}

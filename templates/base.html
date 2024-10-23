@@ -1,0 +1,30 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark" dir="rtl" class="w-100 h-100">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% include 'includes/header_references.html' %}
+    {% block extra_header_references %}
+
+    {% endblock %}
+</head>
+
+<body class="w-100 h-100">
+
+    <div class="container py-3 w-100 h-100">
+        {% block body %}
+
+        {% endblock %}
+    </div>
+    
+    {% include 'includes/footer_references.html' %}
+    {% block extra_footer_references %}
+
+    {% endblock %}
+</body>
+
+</html>

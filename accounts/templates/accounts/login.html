@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}register html{% endblock %}
+
+{% block extra_header_references %}
+
+{% endblock %}
+
+{% block body %}
+<form class="form mx-auto mt-5 box" method="POST" action="" novalidate>
+    {% csrf_token %}
+
+    <div class="d-flex justify-content-between mb-4">
+        <a href="/">
+            بازگشت به سایت
+        </a>
+        <p class="fw-normal">ورود به سایت</p>
+    </div>
+
+    <div class="text-danger py-1">
+        {{ form.non_field_errors }}
+    </div>
+    <div class="form-floating mb-2">
+        <input type="email" class="form-control" id="email" placeholder="name@example.com" name="email">
+        <label for="email">ایمیل</label>
+
+        <div class="text-danger py-1">
+            {{ form.email.errors| first }}
+        </div>
+    </div>
+
+    <div class="form-floating mb-2">
+        <input type="password" class="form-control" id="password" placeholder="Password" name="password">
+        <label for="password">پسورد</label>
+
+        <div class="text-danger py-1">
+            {{ form.password.errors| first }}
+        </div>
+    </div>
+
+    <input class="btn btn-outline-primary w-100 my-2" type="submit" value="ورود">
+</form>
+
+
+{% endblock %}

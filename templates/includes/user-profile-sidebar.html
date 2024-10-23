@@ -1,0 +1,42 @@
+<aside class="me-5" style="width: 20%;">
+    <h3>{{ request.user.full_name }}</h3>
+    <hr>
+    <ul class="nav nav-pills flex-column mb-auto">
+      <li class="nav-item">
+        <a href="{% url 'accounts:personal-info' %}" class="nav-link text-white">
+        <i class="bi bi-person h5 me-2"></i>
+          اطلاعات حساب کاربری
+        </a>
+      </li>
+
+      <li class="nav-item"></li>
+        <a href="{% url 'accounts:shopping-cart' %}" class="nav-link text-white">
+        <i class="bi bi-cart h5 me-2"></i>
+          سبد خرید
+        </a>
+      </li>
+
+      
+      <li class="nav-item"></li>
+        <a href="{% url 'accounts:orders' %}" class="nav-link text-white">
+        <i class="bi bi-basket h5 me-2"></i>
+          سفارش ها
+        </a>
+      </li>
+      
+      <li class="nav-item">
+        <a href="#" class="nav-link text-white">
+        <i class="bi bi-person h5 me-2"></i>
+          آدرس ها
+        </a>
+      </li>
+
+      <li class="nav-item">
+        <a href="#" class="nav-link text-danger">
+        <i class="bi bi-box-arrow-right h5 me-2"></i>
+          خروج از حساب کاربری
+        </a>
+      </li>
+    </ul>
+    
+</aside>

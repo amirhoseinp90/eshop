@@ -1,0 +1,15 @@
+{% load poll_extras %}
+
+<div class="card shadow-sm">
+    <a href="{{ product.get_absolute_url }}">
+        <img class="d-block w-100 h-100" src="{{ product.image.url }}" alt="product image" width="100%" height="255">
+    
+        <div class="card-body h5">
+        <p class="card-text">{{ product.title }}</p>
+        <div class="text-end">
+
+            <small class="">{{ product.price | three_digits_currency }}</small>
+        </div>
+        </div>
+    </a>
+</div>

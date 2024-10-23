@@ -1,0 +1,147 @@
+{% load static %}
+{% load poll_extras %}
+
+<header class="d-flex flex-wrap align-items-center justify-content-between pt-3 w-100">
+
+    <!-- <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+        <li><a href="#" class="nav-link px-2 link-secondary">Home</a></li>
+        <li><a href="#" class="nav-link px-2">Features</a></li>
+        <li><a href="#" class="nav-link px-2">Pricing</a></li>
+        <li><a href="#" class="nav-link px-2">FAQs</a></li>
+        <li><a href="#" class="nav-link px-2">About</a></li>
+    </ul> -->
+
+    <div class="d-flex align-items-center">
+        <h1 class="me-3">
+            <a href="{% url 'home:home' %}">
+                <img class="rounded-circle" style="width: 60px;" src="{% static 'img/logo.png' %}" alt="logo">
+            </a>
+        </h1>
+        <h6><span>ایشاپ</span></h6>
+    </div>
+
+    <div class="w-50">
+        <form action="{% url 'search-product' %}" method="GET">
+            <div class="d-flex bg-light-dark rounded border">
+                <input class="form-control" value="{{ request.GET.q }}" name="q" type="search" placeholder="جستوجو...">
+            
+                <button type="submit" class="btn">
+                    <i class="bi bi-search"></i>
+                </button>
+            </div>
+        </form>
+    </div>
+
+   <div class="d-flex">
+        <div class="text-end me-4">
+            {% if request.user.is_authenticated %}
+            <div class="dropdown text-start">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" data-bs-offset="100,20" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" class="bi bi-person"
+                        viewBox="0 0 16 16">
+                        <path
+                            d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                    </svg>
+                </a>
+                <ul class="dropdown-menu text-small">
+                    <li><a class="dropdown-item" href="{% url 'accounts:profile' %}">{{ request.user.full_name }}</a></li>
+
+                    <li>
+                        <hr class="dropdown-divider pt-2">
+                    </li>
+                    
+                    <li>
+                        <form action="{% url 'accounts:logout' %}" method="post">
+                            {% csrf_token %}
+                            <input class="dropdown-item text-danger" type="submit" value="خروج از حساب کاربری">
+                        </form>
+                    </li>
+
+
+                </ul>
+            </div>
+
+            {% else %}
+            <a href="{% url 'accounts:register' %}" class="btn btn-outline-primary me-2">ثبت نام</a>
+            <a href="{% url 'accounts:login' %}" class="btn btn-outline-success me-2">ورود</a>
+            {% endif %}
+
+        </div>
+
+        <div class="text-end">
+            {% if request.user.is_authenticated %}
+            <div class="dropdown text-start">
+                <a href="#" class="d-block link-body-emphasis text-decoration-none dropdown-toggle"
+                    data-bs-toggle="dropdown" data-bs-offset="10, 20" aria-expanded="false">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="currentColor" class="bi bi-cart" viewBox="0 0 16 16">
+                        <path d="M0 1.5A.5.5 0 0 1 .5 1H2a.5.5 0 0 1 .485.379L2.89 3H14.5a.5.5 0 0 1 .491.592l-1.5 8A.5.5 0 0 1 13 12H4a.5.5 0 0 1-.491-.408L2.01 3.607 1.61 2H.5a.5.5 0 0 1-.5-.5M3.102 4l1.313 7h8.17l1.313-7zM5 12a2 2 0 1 0 0 4 2 2 0 0 0 0-4m7 0a2 2 0 1 0 0 4 2 2 0 0 0 0-4m-7 1a1 1 0 1 1 0 2 1 1 0 0 1 0-2m7 0a1 1 0 1 1 0 2 1 1 0 0 1 0-2"/>
+                      </svg>
+                </a>
+                <ul class="dropdown-menu text-small p-2" style="width: 300px;">
+
+                    {% for order_detail in user_order.order_details.all|slice:":3" %}
+
+                    <li class="py-2">
+                        <div class="d-flex">
+                            <div class="me-4">
+                                <img src="{{ order_detail.product.image.url }}" width="80" height="80" alt="product image">
+                            </div>
+                            <div>
+                                <h4>{{ order_detail.product.title }}</h6>
+                                <p class="h6">{{ order_detail.product.price|three_digits_currency }}</p>
+                            </div>
+                        </div>
+                    </li>
+
+                    {% endfor %}
+
+                    <li>
+                        <hr class="dropdown-divider pt-2">
+                    </li>
+
+                    <li>
+                        <a class="dropdown-item" href="{% url 'accounts:profile' %}">مشاهده سبد خرید</a>
+                    </li>
+
+                </ul>
+            </div>
+
+           
+            {% endif %}
+
+        </div>
+   </div>
+
+    <div class="w-100 border-bottom mt-4 mb-2"></div>
+
+
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+                <ul class="navbar-nav">
+                    {% for category in categories %}
+                    
+                        <li class="nav-item {% if category.sub_categories %}dropdown{% endif %}">
+                            {% if category.sub_categories.exists %}
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                {{ category.title_fa }}
+                            </a>
+                            {% else %}
+                            <a class="nav-link text-white" href="#">{{ category.title_fa }}</a>
+                            {% endif %}
+                            <ul class="dropdown-menu">
+                                {% for category in category.sub_categories.all %}
+                                    <li><a class="dropdown-item" href="#">{{ category.title_fa }}</a></li>
+                                {% endfor %}
+                            </ul>                    
+                    
+                        </li>
+
+                    {% endfor %}
+                </ul>
+        </div>
+    </nav>
+
+
+
+</header>

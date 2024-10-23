@@ -1,0 +1,12 @@
+{% extends 'user-layout.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+    <form action="" method="POST" class="w-75 mx-auto">
+        {% crispy form %}
+
+        <!-- <input class="btn btn-outline-primary mt-4" type="submit" value="ثبت تغییرات"> -->
+    </form>
+
+{% endblock %}

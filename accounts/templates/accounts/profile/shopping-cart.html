@@ -1,0 +1,51 @@
+{% extends 'user-layout.html' %}
+{% load poll_extras %}
+
+
+{% block content %}
+
+    <div class="row g-4">
+      <div class="col-md-5 col-lg-4 order-md-last">
+        <h4 class="d-flex justify-content-between align-items-center mb-3">
+          <span class="text-primary">سبد خرید شما</span>
+          <span class="badge bg-primary rounded-pill">{{ user_order.order_details.all|length }}</span>
+        </h4>
+        <ul class="list-group mb-3">
+          <li class="list-group-item d-flex justify-content-between lh-sm py-3">
+            <div>
+              <h6 class="my-0">جمع سبد خرید</h6>
+              <!-- <small class="text-body-secondary">Brief description</small> -->
+            </div>
+            <span class="text-body-secondary">{{ user_order.calculate_total_price|three_digits_currency }}</span>
+          </li>
+
+          <li class="mt-4 d-grid">
+            <button class="btn btn-block btn-primary">تایید و تکمیل سفارش</button>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="col-md-7 col-lg-8">
+        {% for order_detail in user_order.order_details.all %}
+
+          <div class="border d-flex py-3 px-2 rounded">
+            <a href="{{ order_detail.product.get_abolute_url }}">
+              <div class="me-4">
+                <img width="100" height="100" src="{{ order_detail.product.image.url }}" alt="">
+              </div>
+  
+              <div>
+                  <h3>{{ order_detail.product.title }}</h3>
+                  <h5>{{ order_detail.product.price|three_digits_currency }}</h5>
+                </div>
+              </div>
+            </a>
+          </div>
+
+        {% endfor %}
+    </div>
+
+
+
+{% endblock %}
